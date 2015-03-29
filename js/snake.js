@@ -25,8 +25,6 @@ Snake.prototype.move = function() {
     this.addTo--;
   }
 
-  console.log(this.addTo);
-
   return this.checkCollision(new_spot);
 }
 
