@@ -1,9 +1,9 @@
 var View = function($el){
-  this.dimension = 30;
+  this.dimension = 20;
   this.board = new Board(this.dimension);
   this.$current = $el.find('.current-score');
   this.$top = $el.find('.top-score');
-  this.$ul = $el.find('ul')
+  this.$ul = $el.find('.ul')
   this.bindEvents();
   this.run();
 }
@@ -45,6 +45,7 @@ View.prototype.step = function(){
     clearInterval(this.set);    //the game is over
     this.board.snake.segments = [[1,1]]; //this is the starting point
     this.board.snake.direction = [0,0]; // this is the default starting direction
+    this.board.snake.addTo = 0;
     this.run();
   }
 

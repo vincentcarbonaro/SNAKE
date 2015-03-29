@@ -3,14 +3,30 @@ var Snake = function (board, dimension) {
   this.segments = [[1,1]]; //this is the starting point
   this.direction = [0,0]; // this is the default starting direction
   this.board = board;
+  this.addTo = 0;
 }
 
 Snake.prototype.move = function() {
+
   var new_spot = [this.segments[0][0] + this.direction[0], this.segments[0][1] + this.direction[1]];
+
   this.segments.unshift(new_spot);
-  if (!this.board.checkEat(new_spot)){
+
+  // if youre not eating something, you pop.
+  if (!this.board.checkEat(new_spot)) {
+    if(this.addTo === 0) {
     this.segments.pop();
   }
+  } else { //if you ARE eating something, you increment the addTo
+    this.addTo += 3;
+  }
+
+  if (this.addTo > 0) {
+    this.addTo--;
+  }
+
+  console.log(this.addTo);
+
   return this.checkCollision(new_spot);
 }
 

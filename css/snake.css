@@ -69,3 +69,7 @@ section {
 .right {
   float: right;
 }
+
+ul  {
+  width: 440px;
+}
