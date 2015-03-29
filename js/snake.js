@@ -1,8 +1,7 @@
-
 var Snake = function (board, dimension) {
   this.dimension = dimension;
-  this.segments = [[0,0]];
-  this.direction = [0,0];
+  this.segments = [[1,1]]; //this is the starting point
+  this.direction = [0,0]; // this is the default starting direction
   this.board = board;
 }
 
@@ -36,44 +35,20 @@ Snake.prototype.checkCollision = function (new_spot) {
 var Board = function (dimension) {
   this.dimension = dimension;
   this.snake = new Snake(this, dimension);
-  //this.grid = this.makeGrid();
-  this.apple = [];
-}
-
-// Board.prototype.makeGrid = function() {
-//   var grid = [];
-//   for (var i = 0; i < 10; i++){
-//     grid.push([]);
-//     for (var j = 0; j < 10; j++){
-//       grid[i].push('.');
-//     }
-//   }
-//   return grid;
-// }
-
-Board.prototype.render = function() {
-  var renderBoard = this.makeGrid();
-  //console.log("/////////////////////////////////////////");
-  for (var i = 0; i < this.snake.segments.length; i++){
-    renderBoard[this.snake.segments[i][0]][this.snake.segments[i][1]] = "S";
-  }
-  // for (var j = 0; j < 10; j++){
-  // console.log(renderBoard[j])
-  // }
-  renderBoard[this.apple[0]][this.apple[1]] = "A";
+  this.apples = [];
 }
 
 Board.prototype.generateApple = function(){
-  if(this.apple.length === 0){
+  if(this.apples.length === 0){
     var x = Math.floor(Math.random()*this.dimension);
     var y = Math.floor(Math.random()*this.dimension);
-    this.apple = [x,y];
+    this.apples = [x,y];
   }
 }
 
 Board.prototype.checkEat = function (new_spot) {
-  if (new_spot[0]=== this.apple[0] && new_spot[1]=== this.apple[1]) {
-    this.apple = [];
+  if (new_spot[0]=== this.apples[0] && new_spot[1]=== this.apples[1]) {
+    this.apples = [];
     return true;
   }
 }

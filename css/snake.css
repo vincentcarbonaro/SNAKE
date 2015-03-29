@@ -17,9 +17,10 @@ ul{
   display: block;
   clear: both;
 }
+
 ul {
-  width: 660px;
-  margin: auto;
+  /*width: 660px;
+  margin: auto;*/
 }
 
 li {
@@ -36,4 +37,35 @@ li.snake {
 
 li.apple {
   background: red;
+}
+
+/*************************/
+
+html {
+  background: lightblue;
+  width: 660px;
+  margin: auto;
+}
+
+.title {
+  padding-top: 30px;
+  text-align: center;
+  font-size: 30px;
+}
+
+section {
+  padding: 20px;
+  text-align: center;
+}
+
+.scores {
+  background: orange;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
 }

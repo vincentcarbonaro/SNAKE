@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+  <link rel="stylesheet" type="text/css" href="css/snake.css">
+
+  <head>
+    <title>Snake</title>
+  </head>
+  <body>
+    <script src="js/jquery-2.1.1.js"></script>
+    <script src="js/snake.js"></script>
+    <script src="js/snake-view.js"></script>
+
+    <div id="main">
+
+      <section>
+        Press a direction on the keypad to begin the game!
+      </section>
+
+      <section class="title">
+        Snake
+      </section>
+
+      <section class="scores group">
+        <section class="left">Current Score: <section class="current-score"></section></section>
+        <section class="right">Top Score: <section class="top-score">0</section></section>
+      </section>
+
+      <ul></ul>
+
+    </div>
+
+    <script charset="utf-8">
+      var view = new View($("#main"));
+    </script>
+
+  </body>
+</html>
