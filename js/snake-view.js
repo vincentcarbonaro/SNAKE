@@ -64,31 +64,7 @@ View.prototype.parseKeycode = function(keycode){
     }
 
   }
-//
-//   if(keycode === 38){ // Move Up
-//
-//     if(this.board.snake.segments.length === 1) {
-//       this.board.snake.direction = [-1,0];
-//     } else {
 
-//     }
-//
-//   }
-//   else if(keycode === 40){ // Move Down
-//     if(this.board.snake.direction[0] === 0){
-//       this.board.snake.direction = [1,0];
-//     }
-//   }
-//   else if(keycode === 37){ // Move Left
-//     if(this.board.snake.direction[1] === 0){
-//       this.board.snake.direction = [0,-1];
-//     }
-//   }
-//   else if(keycode === 39){ // Move Right
-//     if(this.board.snake.direction[1] === 0){
-//       this.board.snake.direction = [0,1];
-//     }
-//   }
 }
 
 View.prototype.step = function(){
@@ -101,14 +77,13 @@ View.prototype.step = function(){
     this.run();
   }
 
-  //this is the game being paayed
   this.board.generateApple();
   this.draw();
 }
 
 View.prototype.run = function(){
   var that = this;
-  this.set = setInterval(that.step.bind(that), 200);
+  this.set = setInterval(that.step.bind(that), 100);
 
 }
 

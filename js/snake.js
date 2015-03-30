@@ -53,10 +53,19 @@ var Board = function (dimension) {
 }
 
 Board.prototype.generateApple = function(){
-  if(this.apples.length === 0){
+  while(this.apples.length === 0){
     var x = Math.floor(Math.random()*this.dimension);
     var y = Math.floor(Math.random()*this.dimension);
-    this.apples = [x,y];
+    var hit = false;
+    for(var i = 0; i < this.snake.segments.length; i++){
+      if(hit === true || (this.snake.segments[i][0] === x && this.snake.segments[i][1] === y)){
+        var hit = true;
+        console.log('an apple tried to spawn on snake!');
+      }
+    }
+    if(hit === false){
+      this.apples = [x,y];
+    }
   }
 }
 
