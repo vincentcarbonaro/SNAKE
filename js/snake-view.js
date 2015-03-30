@@ -17,26 +17,78 @@ View.prototype.bindEvents = function(){
 
 View.prototype.parseKeycode = function(keycode){
 
-  if(keycode === 38){ // Move Up
-    if(this.board.snake.direction[0] === 0){
-      this.board.snake.direction = [-1,0];
+  //tremendously obnoxious code to ensure snake cannot turn in on itself
+  if (this.board.snake.segments.length === 1){
+    switch (keycode) {
+
+      case 38:
+        this.board.snake.direction = [-1,0];
+        break;
+
+      case 40:
+        this.board.snake.direction = [1,0];
+        break;
+
+      case 37:
+        this.board.snake.direction = [0,-1];
+        break;
+
+      case 39:
+        this.board.snake.direction = [0,1];
+        break;
+      }
+  } else {
+
+    if(keycode === 38){ // Move Up
+      if (!(this.board.snake.segments[0][1] === this.board.snake.segments[1][1] && this.board.snake.segments[0][0] - 1 === this.board.snake.segments[1][0])) {
+        this.board.snake.direction = [-1,0];
+      }
     }
-  }
-  else if(keycode === 40){ // Move Down
-    if(this.board.snake.direction[0] === 0){
-      this.board.snake.direction = [1,0];
+    //move down
+    else if (keycode === 40) {
+      if (!(this.board.snake.segments[0][1] === this.board.snake.segments[1][1] && this.board.snake.segments[0][0] + 1 === this.board.snake.segments[1][0])) {
+        this.board.snake.direction = [1,0];
+      }
     }
-  }
-  else if(keycode === 37){ // Move Left
-    if(this.board.snake.direction[1] === 0){
-      this.board.snake.direction = [0,-1];
+    //move left
+    else if (keycode === 37) {
+      if (!(this.board.snake.segments[0][0] === this.board.snake.segments[1][0] && this.board.snake.segments[0][1] - 1 === this.board.snake.segments[1][1])) {
+        this.board.snake.direction = [0,-1];
+      }
     }
-  }
-  else if(keycode === 39){ // Move Right
-    if(this.board.snake.direction[1] === 0){
-      this.board.snake.direction = [0,1];
+    //move right
+    else if (keycode === 39) {
+      if (!(this.board.snake.segments[0][0] === this.board.snake.segments[1][0] && this.board.snake.segments[0][1] + 1 === this.board.snake.segments[1][1])) {
+        this.board.snake.direction = [0,1];
+      }
     }
+
   }
+//
+//   if(keycode === 38){ // Move Up
+//
+//     if(this.board.snake.segments.length === 1) {
+//       this.board.snake.direction = [-1,0];
+//     } else {
+
+//     }
+//
+//   }
+//   else if(keycode === 40){ // Move Down
+//     if(this.board.snake.direction[0] === 0){
+//       this.board.snake.direction = [1,0];
+//     }
+//   }
+//   else if(keycode === 37){ // Move Left
+//     if(this.board.snake.direction[1] === 0){
+//       this.board.snake.direction = [0,-1];
+//     }
+//   }
+//   else if(keycode === 39){ // Move Right
+//     if(this.board.snake.direction[1] === 0){
+//       this.board.snake.direction = [0,1];
+//     }
+//   }
 }
 
 View.prototype.step = function(){
@@ -56,7 +108,8 @@ View.prototype.step = function(){
 
 View.prototype.run = function(){
   var that = this;
-  this.set = setInterval(that.step.bind(that), 100);
+  this.set = setInterval(that.step.bind(that), 200);
+
 }
 
 View.prototype.draw = function () {
