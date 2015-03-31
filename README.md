@@ -4,4 +4,3 @@ A remake of the classic arcade game Snake.
 
 ToDo
 - Add "Saving" Top Score
-- add border to bottom
