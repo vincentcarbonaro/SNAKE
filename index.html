@@ -2,7 +2,7 @@
 <html>
   <head>
     <link rel="shortcut icon" type="image/png" href="favicon.png"/>
-    
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/snake.css">
     <title>Snake</title>
   </head>
@@ -11,28 +11,22 @@
     <script src="js/snake.js"></script>
     <script src="js/snake-view.js"></script>
 
-    <div id="main">
-
-      <section>
-        Press a direction on the keypad to begin the game!
-      </section>
-
-      <section class="title">
-        Snake
-      </section>
+    <div class="main">
 
       <section class="scores group">
         <section class="left">Current Score: <section class="current-score"></section></section>
         <section class="right">Top Score: <section class="top-score">0</section></section>
+        <section class="title">Snake</section>
       </section>
 
-
-      <ul class="ul"></ul>
+      <div class="grid-backdrop">
+        <ul></ul>
+      </div>
 
     </div>
 
     <script charset="utf-8">
-      var view = new View($("#main"));
+      var view = new View($(".main"));
     </script>
 
   </body>

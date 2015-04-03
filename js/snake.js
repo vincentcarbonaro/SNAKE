@@ -4,6 +4,12 @@ var Snake = function (board, dimension) {
   this.direction = [0,0]; // this is the default starting direction
   this.board = board;
   this.addTo = 0;
+
+  this.eat = new Audio();
+  this.eat.src = "eat.wav";
+  this.die = new Audio();
+  this.die.src = "gameover.wav";
+  this.die.play();
 }
 
 Snake.prototype.move = function() {
@@ -31,6 +37,7 @@ Snake.prototype.move = function() {
 Snake.prototype.checkCollision = function (new_spot) {
   //if snake went off board
   if (new_spot[0] > this.dimension-1 || new_spot[0] < 0 || new_spot[1] > this.dimension-1 || new_spot[1] < 0 ){
+    this.die.play();
     alert("GAME OVER!");
     return true;
   }
@@ -38,6 +45,7 @@ Snake.prototype.checkCollision = function (new_spot) {
   //if snake collided with self
   for(var i = 1; i < this.segments.length; i++){
     if(this.segments[i][0] === new_spot[0] && this.segments[i][1] === new_spot[1]){
+      this.die.play();
       alert("GAME OVER!");
       return true;
     }
@@ -60,7 +68,6 @@ Board.prototype.generateApple = function(){
     for(var i = 0; i < this.snake.segments.length; i++){
       if(hit === true || (this.snake.segments[i][0] === x && this.snake.segments[i][1] === y)){
         var hit = true;
-        console.log('an apple tried to spawn on snake!');
       }
     }
     if(hit === false){
@@ -72,6 +79,7 @@ Board.prototype.generateApple = function(){
 Board.prototype.checkEat = function (new_spot) {
   if (new_spot[0]=== this.apples[0] && new_spot[1]=== this.apples[1]) {
     this.apples = [];
+    this.snake.eat.play();
     return true;
   }
 }

@@ -1,9 +1,9 @@
 var View = function($el){
-  this.dimension = 20;
+  this.dimension = 30;
   this.board = new Board(this.dimension);
   this.$current = $el.find('.current-score');
   this.$top = $el.find('.top-score');
-  this.$ul = $el.find('.ul')
+  this.$ul = $el.find('ul')
   this.bindEvents();
   this.run();
 }
@@ -82,13 +82,13 @@ View.prototype.step = function(){
 }
 
 View.prototype.run = function(){
+  this.board.apples = [];
+  
   var that = this;
   this.set = setInterval(that.step.bind(that), 100);
-
 }
 
 View.prototype.draw = function () {
-
   this.$current.html(this.board.snake.segments.length*5 - 5);
 
   if (this.board.snake.segments.length*5-5 > parseInt(this.$top.text()) ){

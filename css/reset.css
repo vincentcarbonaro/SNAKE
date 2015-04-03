@@ -1,0 +1,19 @@
+html, head, body, h1, ul, li{
+  margin: 0;
+  padding: 0;
+  text-decoration: inherit;
+  border: 0;
+  text-align: inherit;
+  font: inherit;
+  background: transparent;
+}
+
+ul{
+  list-style: none;
+}
+
+.group:after {
+  content: "";
+  display: block;
+  clear: both;
+}
