@@ -16,7 +16,6 @@ View.prototype.bindEvents = function(){
 }
 
 View.prototype.parseKeycode = function(keycode){
-
   //tremendously obnoxious code to ensure snake cannot turn in on itself
   if (this.board.snake.segments.length === 1){
     switch (keycode) {
@@ -75,6 +74,9 @@ View.prototype.step = function(){
     this.board.snake.direction = [0,0]; // this is the default starting direction
     this.board.snake.addTo = 0;
     this.run();
+  } else {
+    clearInterval(that.set);
+    that.set = setInterval(that.step.bind(that), 100 - this.board.snake.segments.length/3);
   }
 
   this.board.generateApple();
@@ -83,7 +85,7 @@ View.prototype.step = function(){
 
 View.prototype.run = function(){
   this.board.apples = [];
-  
+
   var that = this;
   this.set = setInterval(that.step.bind(that), 100);
 }
