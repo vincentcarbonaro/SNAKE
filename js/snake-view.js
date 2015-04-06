@@ -6,6 +6,27 @@ var View = function($el){
   this.$ul = $el.find('ul')
   this.bindEvents();
   this.run();
+  this.topScore = "0";
+
+  var that = this;
+
+  Parse.initialize("FXco0gYHyIFJPK0YI94p9RGHw0Hrb9OlacTnTDFU", "yaOUYEAkWklLoJOBDkDc5yvWsF6eN6BvQwHxUeuz");
+
+  var query = new Parse.Query("Score");
+  query.find({
+    success: function (results) {
+      results.forEach(function (el) {
+        if(parseInt(el.escape('score')) > parseInt(that.$top.text())) {
+          that.$top.html(el.escape('score'));
+        }
+      });
+    },
+    error: function () {
+      console.log("Failed Query");
+    }
+  });
+
+
 }
 
 View.prototype.bindEvents = function(){
@@ -68,7 +89,25 @@ View.prototype.parseKeycode = function(keycode){
 
 View.prototype.step = function(){
   var that = this;
+
+  //the game is over
   if (this.board.snake.move()){
+
+
+
+    var score = new Parse.Object("Score");
+    score.set("username", "currentUser");
+    score.set("score", this.score.toString());
+    score.save({}, {
+      success: function () {
+        console.log('Successfull Save');
+      },
+      erorr: function () {
+        console.log('Failed Save');
+      }
+
+    });
+
     clearInterval(this.set);    //the game is over
     this.board.snake.segments = [[1,1]]; //this is the starting point
     this.board.snake.direction = [0,0]; // this is the default starting direction
@@ -91,10 +130,15 @@ View.prototype.run = function(){
 }
 
 View.prototype.draw = function () {
-  this.$current.html(this.board.snake.segments.length*5 - 5);
 
-  if (this.board.snake.segments.length*5-5 > parseInt(this.$top.text()) ){
-    this.$top.html(this.board.snake.segments.length*5-5);
+  this.score = (Math.floor((this.board.snake.segments.length*5-5)/3))
+  this.score = this.score*this.score
+
+  this.$current.html(this.score);
+
+  //insert current score if it beats top score
+  if (this.score > parseInt(this.$top.text()) ){
+    this.$top.html(this.score);
   }
 
   this.$ul.children().remove();
