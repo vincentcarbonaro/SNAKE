@@ -26,7 +26,6 @@ var View = function($el){
     }
   });
 
-
 }
 
 View.prototype.bindEvents = function(){
