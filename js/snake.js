@@ -6,9 +6,9 @@ var Snake = function (board, dimension) {
   this.addTo = 0;
 
   this.eat = new Audio();
-  this.eat.src = "eat.wav";
+  this.eat.src = "extras/eat.wav";
   this.die = new Audio();
-  this.die.src = "gameover.wav";
+  this.die.src = "extras/gameover.wav";
   this.die.play();
 }
 
