@@ -7,7 +7,6 @@ var View = function($el){
   this.bindEvents();
   this.run();
   this.topScore = "0";
-  this.newScore = new Parse.Object("Score");
 
   $.modal.defaults = {
     overlay: "#000",        // Overlay color
@@ -148,6 +147,8 @@ View.prototype.step = function(){
 
     $('.submit-score input').click(function (event) {
       event.preventDefault();
+
+      that.newScore = new Parse.Object("Score");
 
       that.newScore.set("username", $('.name input').val());
 

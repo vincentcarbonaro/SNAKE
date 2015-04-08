@@ -1,6 +1,6 @@
 .score-list {
   padding-bottom: 10px;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .all-scores {
@@ -15,18 +15,18 @@
 
 .score-list-rank {
   float: left;
-  padding-left: 100px;
+  padding-left: 75px;
 }
 
 .score-list-name {
   text-align: center;
   margin: auto;
-  width: 100px;
+  width: 150px;
 }
 
 .score-list-score {
   float: right;
-  padding-right: 100px;
+  padding-right: 75px;
 }
 
 /*////////////////////*/
