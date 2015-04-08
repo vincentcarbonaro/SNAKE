@@ -120,19 +120,25 @@ View.prototype.step = function(){
 
     this.query.find({
       success: function (results) {
+
+        var i = 1;
+
+        $('.score-list-rank').html("<strong><u>Rank</u></strong><br>")
+        $('.score-list-name').html("<strong><u>Name</u></strong><br>");
+        $('.score-list-score').html("<strong><u>Score</u></strong><br>");
+
         results.forEach(function (el) {
-          var rowUser = "<li>" + "<label class='rowUser'>" + el.get('username') +"</label>";
-          var rowScore = "<label class='rowScore'>" + el.get('score') + "</label></li><br>"
-          $('.top-scores').append(rowUser + rowScore);
+          $('.score-list-rank').append(i + ". <br>")
+          $('.score-list-name').append(el.get('username') + "<br>");
+          $('.score-list-score').append(el.get('score') + "<br>");
+          i++;
         });
+
       },
       error: function () {
         console.log("Failed Query");
       }
     });
-
-
-
 
     $('.saving-score input').val( parseInt(this.$current.text()) );
 
