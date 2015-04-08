@@ -7,13 +7,33 @@ var View = function($el){
   this.bindEvents();
   this.run();
   this.topScore = "0";
+  this.newScore = new Parse.Object("Score");
+
+  $.modal.defaults = {
+    overlay: "#000",        // Overlay color
+    opacity: 0.75,          // Overlay opacity
+    zIndex: 1,              // Overlay z-index.
+    escapeClose: false,     // Allows the user to close the modal by pressing `ESC`
+    clickClose: false,      // Allows the user to close the modal by clicking the overlay
+    closeText: 'Close',     // Text content for the close <a> tag.
+    closeClass: '',         // Add additional class(es) to the close <a> tag.
+    showClose: false,       // Shows a (X) icon/link in the top-right corner
+    modalClass: "modal",    // CSS class added to the element being displayed in the modal.
+    spinnerHtml: null,      // HTML appended to the default spinner during AJAX requests.
+    showSpinner: true,      // Enable/disable the default spinner during AJAX requests.
+    fadeDuration: null,     // Number of milliseconds the fade transition takes (null means no transition)
+    fadeDelay: 1.0          // Point during the overlay's fade-in that the modal begins to fade in (.5 = 50%, 1.5 = 150%, etc.)
+  };
 
   var that = this;
 
   Parse.initialize("FXco0gYHyIFJPK0YI94p9RGHw0Hrb9OlacTnTDFU", "yaOUYEAkWklLoJOBDkDc5yvWsF6eN6BvQwHxUeuz");
 
-  var query = new Parse.Query("Score");
-  query.find({
+  this.query = new Parse.Query("Score");
+
+  this.query.descending('score').limit(10);
+
+  this.query.find({
     success: function (results) {
       results.forEach(function (el) {
         if(parseInt(el.escape('score')) > parseInt(that.$top.text())) {
@@ -92,33 +112,73 @@ View.prototype.step = function(){
   //the game is over
   if (this.board.snake.move()){
 
+    clearInterval(this.set);    //the game is over
 
+    $('.new-score').modal();
 
-    var score = new Parse.Object("Score");
-    score.set("username", "currentUser");
-    score.set("score", this.score.toString());
-    score.save({}, {
-      success: function () {
-        console.log('Successfull Save');
+    $('.top-scores').html("");
+
+    this.query.find({
+      success: function (results) {
+        results.forEach(function (el) {
+          var rowUser = "<li>" + "<label class='rowUser'>" + el.get('username') +"</label>";
+          var rowScore = "<label class='rowScore'>" + el.get('score') + "</label></li><br>"
+          $('.top-scores').append(rowUser + rowScore);
+        });
       },
-      erorr: function () {
-        console.log('Failed Save');
+      error: function () {
+        console.log("Failed Query");
       }
-
     });
 
-    clearInterval(this.set);    //the game is over
-    this.board.snake.segments = [[1,1]]; //this is the starting point
-    this.board.snake.direction = [0,0]; // this is the default starting direction
-    this.board.snake.addTo = 0;
-    this.run();
+
+
+
+    $('.saving-score input').val( parseInt(this.$current.text()) );
+
+    var that = this;
+
+    $('.name input').val("");
+
+    $('.submit-score input').click(function (event) {
+      event.preventDefault();
+
+      that.newScore.set("username", $('.name input').val());
+
+      that.newScore.set("score", parseInt(that.$current.text()) );
+      that.newScore.save({}, {
+        success: function () {
+          console.log('Successfull Save');
+          that.board.snake.segments = [[1,1]]; //this is the starting point
+          that.board.snake.direction = [0,0]; // this is the default starting direction
+          that.board.snake.addTo = 0;
+          that.run();
+          that.board.generateApple();
+          that.draw();
+        },
+        erorr: function () {
+          console.log('Failed Save');
+          that.board.snake.segments = [[1,1]]; //this is the starting point
+          that.board.snake.direction = [0,0]; // this is the default starting direction
+          that.board.snake.addTo = 0;
+          that.run();
+          that.board.generateApple();
+          that.draw();
+        }
+      });
+
+      $('.submit-score input').off('click');
+
+      $.modal.close();
+    })
+
   } else {
-    clearInterval(that.set);
-    that.set = setInterval(that.step.bind(that), 100 - this.board.snake.segments.length/3);
+    clearInterval(this.set);    //the game is over
+    this.set = setInterval(that.step.bind(that), 100 - this.board.snake.segments.length/3);
+    this.board.generateApple();
+    this.draw();
   }
 
-  this.board.generateApple();
-  this.draw();
 }
 
 View.prototype.run = function(){
