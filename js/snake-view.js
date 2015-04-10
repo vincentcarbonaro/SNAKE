@@ -55,23 +55,28 @@ View.prototype.bindEvents = function(){
 }
 
 View.prototype.parseKeycode = function(keycode){
+
   //tremendously obnoxious code to ensure snake cannot turn in on itself
   if (this.board.snake.segments.length === 1){
     switch (keycode) {
 
       case 38:
+        event.preventDefault();
         this.board.snake.direction = [-1,0];
         break;
 
       case 40:
+        event.preventDefault();
         this.board.snake.direction = [1,0];
         break;
 
       case 37:
+        event.preventDefault();
         this.board.snake.direction = [0,-1];
         break;
 
       case 39:
+        event.preventDefault();
         this.board.snake.direction = [0,1];
         break;
       }
@@ -79,24 +84,28 @@ View.prototype.parseKeycode = function(keycode){
 
     if(keycode === 38){ // Move Up
       if (!(this.board.snake.segments[0][1] === this.board.snake.segments[1][1] && this.board.snake.segments[0][0] - 1 === this.board.snake.segments[1][0])) {
+        event.preventDefault();
         this.board.snake.direction = [-1,0];
       }
     }
     //move down
     else if (keycode === 40) {
       if (!(this.board.snake.segments[0][1] === this.board.snake.segments[1][1] && this.board.snake.segments[0][0] + 1 === this.board.snake.segments[1][0])) {
+        event.preventDefault();
         this.board.snake.direction = [1,0];
       }
     }
     //move left
     else if (keycode === 37) {
       if (!(this.board.snake.segments[0][0] === this.board.snake.segments[1][0] && this.board.snake.segments[0][1] - 1 === this.board.snake.segments[1][1])) {
+        event.preventDefault();
         this.board.snake.direction = [0,-1];
       }
     }
     //move right
     else if (keycode === 39) {
       if (!(this.board.snake.segments[0][0] === this.board.snake.segments[1][0] && this.board.snake.segments[0][1] + 1 === this.board.snake.segments[1][1])) {
+        event.preventDefault();
         this.board.snake.direction = [0,1];
       }
     }

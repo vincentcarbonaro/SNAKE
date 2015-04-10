@@ -38,7 +38,6 @@ Snake.prototype.checkCollision = function (new_spot) {
   //if snake went off board
   if (new_spot[0] > this.dimension-1 || new_spot[0] < 0 || new_spot[1] > this.dimension-1 || new_spot[1] < 0 ){
     this.die.play();
-    alert("GAME OVER!");
     return true;
   }
 
@@ -46,7 +45,6 @@ Snake.prototype.checkCollision = function (new_spot) {
   for(var i = 1; i < this.segments.length; i++){
     if(this.segments[i][0] === new_spot[0] && this.segments[i][1] === new_spot[1]){
       this.die.play();
-      alert("GAME OVER!");
       return true;
     }
   }
