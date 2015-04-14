@@ -8,7 +8,3 @@ A remake of the classic arcade game Snake.
 ## Technical Details
  - Uses Javascript and jQuery to manipulate the DOM
  - Uses Parse.com to store top score data
-
-## TODO
-- New Top Score Sound Effect
-- Only Prompt User for Name when Top Score

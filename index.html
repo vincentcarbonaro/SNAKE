@@ -5,12 +5,15 @@
     <link rel="stylesheet" type="text/css" href="css/reset.css">
     <link rel="stylesheet" type="text/css" href="css/snake.css">
     <link rel="stylesheet" type="text/css" href="css/new-score.css">
+    <link rel="stylesheet" type="text/css" href="css/intro-modal.css">
     <script src="https://www.parsecdn.com/js/parse-1.4.0.min.js"></script>
     <script src="vendor/jquery-2.1.1.js"></script>
     <script src="vendor/jquery.modal.min.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="vendor/jquery.modal.css">
     <script src="js/snake.js"></script>
     <script src="js/snake-view.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
     <title>Snake</title>
   </head>
   <body>
@@ -25,6 +28,22 @@
 
       <div class="grid-backdrop">
         <ul></ul>
+      </div>
+
+    </div>
+
+    <div class="intro-modal">
+      <label>Welcome to Snake!</label>
+      <br><br>
+      Use the keypad to move<br><br>
+      Press any of the directional keys to start<br><br>
+      (you might want to pick Right or Down first!!)<br><br>
+
+      <div class="personal">
+        <br>
+        Thanks for checking out my game!! <br>
+        Click <a href="http://www.vincentcarbonaro.us">here</a> to check out my personal website!<br>
+        <br><label>© Vincent Carbonaro 2015</label>
       </div>
 
     </div>
@@ -58,10 +77,16 @@
         <input tabindex="2" class="submit-score" type="submit" value="Submit!">
       </div>
 
+      <div class="personal">
+        <br>
+        Thanks for checking out my game!! <br>
+        Click <a href="http://www.vincentcarbonaro.us">here</a> to check out my personal website!<br>
+        <br><label>© Vincent Carbonaro 2015</label>
+      </div>
+
     </form>
 
     <script charset="utf-8">
-
       var view = new View($(".main"));
     </script>
 
