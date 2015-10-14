@@ -1,4 +1,4 @@
-# [Snake](https://vinstagram.herokuapp.com)
+# [Snake](http://www.vincentcarbonaro.us/Snake/)
 
 A remake of the classic arcade game Snake.
 

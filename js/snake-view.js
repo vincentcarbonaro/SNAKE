@@ -68,8 +68,12 @@ var View = function($el){
 View.prototype.bindEvents = function(){
   var that = this;
   $(document).on("keydown",function(event){
-    that.parseKeycode(event.keyCode)
-  })
+    var keycode = event.keyCode;
+    if (keycode >= 37 && keycode <= 40) {
+      event.preventDefault();
+    }
+    that.parseKeycode(keycode)
+  });
 }
 
 View.prototype.parseKeycode = function(keycode){
@@ -79,22 +83,18 @@ View.prototype.parseKeycode = function(keycode){
     switch (keycode) {
 
       case 38:
-        event.preventDefault();
         this.board.snake.direction = [-1,0];
         break;
 
       case 40:
-        event.preventDefault();
         this.board.snake.direction = [1,0];
         break;
 
       case 37:
-        event.preventDefault();
         this.board.snake.direction = [0,-1];
         break;
 
       case 39:
-        event.preventDefault();
         this.board.snake.direction = [0,1];
         break;
       }
@@ -102,28 +102,24 @@ View.prototype.parseKeycode = function(keycode){
 
     if(keycode === 38){ // Move Up
       if (!(this.board.snake.segments[0][1] === this.board.snake.segments[1][1] && this.board.snake.segments[0][0] - 1 === this.board.snake.segments[1][0])) {
-        event.preventDefault();
         this.board.snake.direction = [-1,0];
       }
     }
     //move down
     else if (keycode === 40) {
       if (!(this.board.snake.segments[0][1] === this.board.snake.segments[1][1] && this.board.snake.segments[0][0] + 1 === this.board.snake.segments[1][0])) {
-        event.preventDefault();
         this.board.snake.direction = [1,0];
       }
     }
     //move left
     else if (keycode === 37) {
       if (!(this.board.snake.segments[0][0] === this.board.snake.segments[1][0] && this.board.snake.segments[0][1] - 1 === this.board.snake.segments[1][1])) {
-        event.preventDefault();
         this.board.snake.direction = [0,-1];
       }
     }
     //move right
     else if (keycode === 39) {
       if (!(this.board.snake.segments[0][0] === this.board.snake.segments[1][0] && this.board.snake.segments[0][1] + 1 === this.board.snake.segments[1][1])) {
-        event.preventDefault();
         this.board.snake.direction = [0,1];
       }
     }
